@@ -12,6 +12,6 @@ public interface ClienteDAO {
 	public void update(Cliente cliente);
 	public void delete(Cliente cliente);
 	public List<Cliente> readAll();
-	public Cliente login(String email, String password);
+	//public Cliente login(String email, String password);
 
 }

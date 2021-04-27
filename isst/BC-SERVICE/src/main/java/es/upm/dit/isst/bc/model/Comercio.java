@@ -16,6 +16,8 @@ public class Comercio implements Serializable{
     @Id
 	private String email;
 	private String password;
+	private String shop_name;
+	private String phone;
 	private String location;
 	
 	
@@ -51,6 +53,30 @@ public class Comercio implements Serializable{
 
 
 
+	public String getShop_name() {
+		return shop_name;
+	}
+
+
+
+	public void setShop_name(String shop_name) {
+		this.shop_name = shop_name;
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+
 	public String getLocation() {
 		return location;
 	}
@@ -60,13 +86,6 @@ public class Comercio implements Serializable{
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-
-
-	
-
-
-
 
 
 
@@ -83,7 +102,8 @@ public class Comercio implements Serializable{
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((shop_name == null) ? 0 : shop_name.hashCode());
 		return result;
 	}
 
@@ -113,7 +133,16 @@ public class Comercio implements Serializable{
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (shop_name == null) {
+			if (other.shop_name != null)
+				return false;
+		} else if (!shop_name.equals(other.shop_name))
+			return false;
 		return true;
 	}
 
@@ -121,10 +150,12 @@ public class Comercio implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Comercio [email=" + email + ", password=" + password + ", location=" + location + "]";
+		return "Comercio [email=" + email + ", password=" + password + ", shop_name=" + shop_name + ", phone=" + phone
+				+ ", location=" + location + "]";
 	}
-	
-	
+
+
+
 	
 
 
