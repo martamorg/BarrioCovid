@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,7 @@ body {font-size:16px;}
 .w3-half img:hover{opacity:1}
 </style>
 <body>
-
+  
 
 <!--menu superior -->
 <div class="w3-top">
@@ -35,48 +35,42 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
+    <a class="imagen" href="pantallaCliente.jsp">
       <img src="img/logo.png" width = 100%>
-    
+    </a>
   </div>
-
-
-
 
   <div class="w3-bar-block">
     <div class="w3-panel w3-border w3-border-white ">
       <h1>Pedidos</h1>
       
       <c:forEach items="${pedidos}" var="pedidoi">
-	  <c:if test="${pedidoi.idComercio.equals(comercio.email)}">
+	  <c:if test="${pedidoi.idCliente.equals(cliente.email)}">
       
       <button onclick="myFunction('${pedidoi.idPedido}')" class="w3-button w3-block w3-red w3-left-align">Pedido id: ${pedidoi.idPedido}</button>
       <div id="${pedidoi.idPedido}" class="w3-hide w3-container">
-      
-        <p>${pedidoi.listaProductos}</p>
-        <p>Horario recogida: ${pedidoi.horario}</p>
+        <p>Pedido: ${pedidoi.listaProductos}</p>
+        <p>Recogida: ${pedidoi.horario}</p>
         
-        <c:forEach items="${clientes}" var="clientej">	     
-           
-		      <c:if test="${pedidoi.idCliente.equals(clientej.email)}">
-		      
-		        <p>Comprador: ${clientej.client_name}</p>
-		        <p>Email de contacto: ${clientej.email}</p> 
-		        
-		        <c:if test="${clientej.type == true}">
-	      			<c:forEach items="${clientes}" var="clientei">	        
-			          <c:if test="${pedidoi.idRepartidor.equals(clientei.email)}">		        
-			            <p>Repartidor: ${clientei.client_name}</p>
-			            <p>Email del repartidor: ${clientei.email}</p> 
-			            
-			          </c:if>		        		            
-			        </c:forEach>		            
-		        </c:if>	
-		        	        		            
-		      </c:if>
-		      		      		    		      
-		</c:forEach>
         
-           
+        <c:forEach items="${comercios}" var="comercioi">
+	        <c:if test="${pedidoi.idComercio.equals(comercioi.email)}">
+	        	<p>Comprado en: ${comercioi.shop_name}</p>
+	        	<p>Ubicación: ${comercioi.location}</p>	
+	        	<p>Teléfono del comercio: ${comercioi.phone}</p>	        	
+	        	        	
+	        </c:if>
+	    </c:forEach>      
+	    
+	    <c:if test= "${cliente.type == true}">         
+		    <c:forEach items="${clientes}" var="clientej">	        
+		        <c:if test="${pedidoi.idRepartidor.equals(clientej.email)}">
+		        	<p>Mi repartidor: ${clientej.client_name}</p>
+		        	<p>email de contacto: ${clientej.email}</p>        	
+		        </c:if>
+			</c:forEach>
+		</c:if>
+        	
       </div>
       
       </c:if>
@@ -86,6 +80,49 @@ body {font-size:16px;}
   </div>
   
 
+
+
+	  <c:if test="${cliente.type == false}">
+
+
+  <div class="w3-panel w3-border w3-border-white">
+    <div class="w3-bar-block">
+      <h1>Recogidas</h1>
+      
+      <c:forEach items="${pedidos}" var="pedidoi">
+	  <c:if test="${pedidoi.idRepartidor.equals(cliente.email)}">
+      
+      <button onclick="myFunction('${pedidoi.idPedido}')" class="w3-button w3-block w3-red w3-left-align">Recogida id: ${pedidoi.idPedido}</button>
+      <div id="${pedidoi.idPedido}" class="w3-hide w3-container">
+        <p>Info recogida</p>
+        <p>Horario recogida: ${pedidoi.horario}</p>
+        
+        <c:forEach items="${comercios}" var="comercioi">
+	        <c:if test="${pedidoi.idComercio.equals(comercioi.email)}">
+	        	<p>Comprado en: ${comercioi.shop_name}</p>
+	        	<p>Ubicación comercio: ${comercioi.location}</p>
+	        	<p>Teléfono del comercio: ${comercioi.phone}</p>	        		        		        	
+	        </c:if>
+	    </c:forEach>
+	    
+	    <c:forEach items="${clientes}" var="clientej">	        
+		      <c:if test="${pedidoi.idCliente.equals(clientej.email)}">
+		        <p>Repartir a: ${clientej.client_name}</p>
+		        <p>Email de contacto: ${clientej.email}</p>     
+		        <p>Dirección de entrega: ${clientej.location}</p>        			           	
+		      </c:if>
+		</c:forEach>
+        
+      </div>
+      
+      </c:if>  
+      </c:forEach>  
+      
+    </div>
+  </div> 
+  
+  
+	  </c:if>
 
 
 </nav>
@@ -105,18 +142,18 @@ body {font-size:16px;}
 
  <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-xxxlarge"><b>Mi Tienda: ${comercio.shop_name}</b></h1>
-    <button href="" class="boton">Añadir producto</button>
+    <h1 class="w3-xxxlarge"><b> ${comercio.shop_name} </b></h1>
+    
   </div>
 
 
 
-  <!-- Tienda -->
+  <!-- Tiendas -->
   <div class="w3-container" id="designers" style="margin-top:40px">
     <h1 class="w3-xxlarge w3-text-red"><b>Productos</b></h1>
   </div>
 
-  <!-- Lista Productos -->
+  <!-- Lista Tiendas -->
   <div class="w3-row-padding w3-grayscale">
     <div class="w3-row m4 w3-margin-bottom">
       <div class="w3-light-grey w3-container">
@@ -125,7 +162,11 @@ body {font-size:16px;}
         </div>
         <div class="w3-container w3-threequarter">
           <h3><a href="#">PRODUCTO 1 </a></h3>
-          <p>INFO PRODUCTO</p>
+          <h3>
+            <p>INFO PRODUCTO</p>
+            <button href="" class= "boton2">Añadir al carrito</button>
+          </h3>
+          
         </div>
       </div>
     </div>
@@ -136,8 +177,10 @@ body {font-size:16px;}
         </div>
         <div class="w3-container w3-threequarter">
           <h3><a href="#">PRODUCTO 2 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO PRODUCTO</p>
+          <h3>
+            <p>INFO PRODUCTO</p>
+            <button href="" class= "boton2">Añadir al carrito</button>
+          </h3>
         </div>
       </div>
     </div>
@@ -148,8 +191,10 @@ body {font-size:16px;}
         </div>
         <div class="w3-container w3-threequarter">
           <h3><a href="#">PRODUCTO 3 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO PRODUCTO</p>
+          <h3>
+            <p>INFO PRODUCTO</p>
+            <button href="" class= "boton2">Añadir al carrito</button>
+          </h3>
         </div>
       </div>
     </div>

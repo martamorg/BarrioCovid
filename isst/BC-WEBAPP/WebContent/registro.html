@@ -25,31 +25,31 @@
         Comercio
       </div>
 
-      <form action="action_page.php" method="post" id="comercio">
+      <form action="FormRegistroComercio" id="comercio">
 
          <div class="container">
            <h1>Registro de Comercio</h1>
 
-           <label for="uname"><b>Nombre y Apellidos</b></label>
-           <input type="text" placeholder="Introduce tu Nombre" name="uname" required>
+<!--            <label for="uname"><b>Nombre y Apellidos</b></label>
+           <input type="text" placeholder="Introduce tu Nombre" name="name" required> -->
 
-           <label for="uname"><b>Nombre del Comercio</b></label>
-           <input type="text" placeholder="Introduce el Nombre del Comercio" name="uname" required>
+           <label for="shop_name"><b>Nombre del Comercio</b></label>
+           <input type="text" placeholder="Introduce el Nombre del Comercio" id="shop_name" name="shop_name" required>
 
-           <label for="uname"><b>Dirección del Comercio</b></label>
-           <input type="text" placeholder="Introduce la Dirección del Comercio" name="uname" required>
+           <label for="location"><b>Dirección del Comercio</b></label>
+           <input type="text" placeholder="Introduce la Dirección del Comercio" id="location" name="location" required>
 
-           <label for="uname"><b>Número de Teléfono</b></label>
-           <input type="text" placeholder="Introduce tu Número de Teléfono" name="uname" required>
+           <label for="phone"><b>Número de Teléfono</b></label>
+           <input type="text" placeholder="Introduce tu Número de Teléfono" name="phone" id="phone" required>
 
-           <label for="uname"><b>Usuario</b></label>
-           <input type="text" placeholder="Introduce tu correo" name="uname" required>
+           <label for="email"><b>Usuario</b></label>
+           <input type="text" placeholder="Introduce tu correo" name="email" id="email" required>
 
-           <label for="psw"><b>Contraseña</b></label>
+<!--            <label for="psw"><b>Repite la contraseña</b></label>
            <input type="password" placeholder="Introduce tu contraseña" name="psw" required>
-
-           <label for="psw"><b>Repite la contraseña</b></label>
-           <input type="password" placeholder="Introduce tu contraseña" name="psw" required>
+ -->
+           <label for="password"><b>Contraseña</b></label>
+           <input type="password" placeholder="Introduce tu contraseña" name="password" id="password" required>
 
            <label>
              <input type="checkbox" checked="checked" name="remember" required> Estoy de acuerdo con los <a href="https://es.wikipedia.org/wiki/Wikipedia:Portada">términos de uso y la política de privacidad.</a>
@@ -60,42 +60,52 @@
 
      </form>
 
-     <form action="action_page.php" method="post" id="cliente">
+     <form action="FormRegistroCliente" id="cliente">
 
         <div class="container">
           <h1>Registro de Cliente</h1>
 
-          <label for="uname"><b>Tipo de Cliente</b></label>
+          <label><b>Tipo de Cliente</b></label><br>
+          
           <div class="sw-vuln">
-            Vulnerable
+          <label>Vulnerable</label>
+          	<label class="switch">
+          	<input id="toggle" name='type' type='checkbox' value='vulnerable' />
+          	<span class="slider round"></span>
+          	</label>
+          <br>
+		  </div>
+		  
+		  <div class="sw-vuln">
+          <label>No vulnerable</label>
+          	<label class="switch">
+          	<input id="toggle" name='type' type='checkbox' value='noVulnerable' />
+          	<span class="slider round"></span>
+          	</label>
+          <br>
+		  </div>
+		  
 
-            <label class="switch">
-              <input onclick="" type="checkbox" checked="true" id="toggle">
-              <span class="slider round"></span>
-            </label>
 
-           No Vulnerable
-          </div>
+          <label for="name"><b>Nombre y Apellidos</b></label>
+          <input type="text" placeholder="Introduce tu Nombre" name="name" id="name" required>
 
-          <label for="uname"><b>Nombre y Apellidos</b></label>
-          <input type="text" placeholder="Introduce tu Nombre" name="uname" required>
+          <label for="location"><b>Dirección</b></label>
+          <input type="text" placeholder="Introduce tu Dirección" name="location" id="location" required>
 
-          <label for="uname"><b>Dirección</b></label>
-          <input type="text" placeholder="Introduce tu Dirección" name="uname" required>
-
-          <label for="uname"><b>Número de Teléfono</b></label>
+<!--           <label for="uname"><b>Número de Teléfono</b></label>
           <input type="text" placeholder="Introduce tu Número de Teléfono" name="uname" required>
+ -->
 
+          <label for="email"><b>Usuario</b></label>
+          <input type="text" placeholder="Introduce tu correo" id="email" name="email" required>
 
-          <label for="uname"><b>Usuario</b></label>
-          <input type="text" placeholder="Introduce tu correo" name="uname" required>
+          <label for="password"><b>Contraseña</b></label>
+          <input type="password" placeholder="Introduce tu contraseña" id="password" name="password" required>
 
-          <label for="psw"><b>Contraseña</b></label>
+<!--           <label for="psw"><b>Repite la contraseña</b></label>
           <input type="password" placeholder="Introduce tu contraseña" name="psw" required>
-
-          <label for="psw"><b>Repite la contraseña</b></label>
-          <input type="password" placeholder="Introduce tu contraseña" name="psw" required>
-
+ -->
           <label>
             <input type="checkbox" checked="checked" name="remember" required> Estoy de acuerdo con los <a href="https://es.wikipedia.org/wiki/Wikipedia:Portada">términos de uso y la política de privacidad.</a>
           </label>

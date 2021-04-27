@@ -2,21 +2,21 @@ package es.upm.dit.isst.bc.model;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
-@Entity
+
 public class Cliente implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    
 	private String email;
 	private String password;
 	private String location;
+	private String client_name;
 	private boolean type;
 	
 	
@@ -64,6 +64,18 @@ public class Cliente implements Serializable{
 
 
 
+	public String getClient_name() {
+		return client_name;
+	}
+
+
+
+	public void setClient_name(String client_name) {
+		this.client_name = client_name;
+	}
+
+
+
 	public boolean isType() {
 		return type;
 	}
@@ -86,6 +98,7 @@ public class Cliente implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((client_name == null) ? 0 : client_name.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -104,6 +117,11 @@ public class Cliente implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
+		if (client_name == null) {
+			if (other.client_name != null)
+				return false;
+		} else if (!client_name.equals(other.client_name))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -128,13 +146,13 @@ public class Cliente implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cliente [email=" + email + ", password=" + password + ", location=" + location + ", type=" + type + "]";
+		return "Cliente [email=" + email + ", password=" + password + ", location=" + location + ", client_name="
+				+ client_name + ", type=" + type + "]";
 	}
-	
-	
-	
 
 
+
+	
 
 
 }

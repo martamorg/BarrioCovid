@@ -9,7 +9,7 @@ public class URLHelper {
 
                 if(envValue == null)
 
-                        return "http://localhost:8080/BC-SERVICE/rest/Clientes";
+                        return "http://localhost:8080/BC-SERVICE/rest";
 
                 else
 

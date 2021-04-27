@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
 <title>BarrioCovid</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="img/logo.PNG" type="image/PNG">
+<link rel="icon" href="img/logo.png" type="image/PNG">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <style>
@@ -21,55 +21,118 @@ body {font-size:16px;}
 
 <!--menu superior -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-large ">
+  <div class="w3-bar w3-red w3-large ">  
     <img src="https://i.pinimg.com/564x/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.jpg" class="w3-circle w3-bar-item w3-right" alt="usericon" style="width:100%;max-width:58px">
-
-    <input type="text" class="w3-bar-item w3-input w3-right" placeholder="Buscar tienda">
-
+<!--     HACER BUSCADOR  -->
+	<form action="FormLogout">
+    <button type="submit" class="w3-bar-item w3-input w3-right">Logout</button>
+    </form> 
   </div>
 </div>
+
+
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <img src="img/logo.PNG" width = 100%>
+    <img src="img/logo.png" width = 100%>
   </div>
+
+
+
 
   <div class="w3-bar-block">
     <div class="w3-panel w3-border w3-border-white ">
       <h1>Pedidos</h1>
-      <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-red w3-left-align">Pedido 1</button>
-      <div id="Demo1" class="w3-hide w3-container">
-        <p>Producto</p>
+      
+      <c:forEach items="${pedidos}" var="pedidoi">
+	  <c:if test="${pedidoi.idCliente.equals(cliente.email)}">
+      
+      <button onclick="myFunction('${pedidoi.idPedido}')" class="w3-button w3-block w3-red w3-left-align">Pedido id: ${pedidoi.idPedido}</button>
+      <div id="${pedidoi.idPedido}" class="w3-hide w3-container">
+        <p>Pedido: ${pedidoi.listaProductos}</p>
+        <p>Recogida: ${pedidoi.horario}</p>
+        
+        
+        <c:forEach items="${comercios}" var="comercioi">
+	        <c:if test="${pedidoi.idComercio.equals(comercioi.email)}">
+	        	<p>Comprado en: ${comercioi.shop_name}</p>
+	        	<p>Ubicación: ${comercioi.location}</p>	
+	        	<p>Teléfono del comercio: ${comercioi.phone}</p>	        	
+	        	        	
+	        </c:if>
+	    </c:forEach>      
+	    
+	    <c:if test= "${cliente.type == true}">         
+		    <c:forEach items="${clientes}" var="clientej">	        
+		        <c:if test="${pedidoi.idRepartidor.equals(clientej.email)}">
+		        	<p>Mi repartidor: ${clientej.client_name}</p>
+		        	<p>email de contacto: ${clientej.email}</p>        	
+		        </c:if>
+			</c:forEach>
+		</c:if>
+        	
       </div>
-      <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-red w3-left-align">Pedido 2</button>
-      <div id="Demo2" class="w3-hide w3-container">
-        <p>Producto</p>
-      </div>
+      
+      </c:if>
+	  </c:forEach>
+      
     </div>
   </div>
+  
+
+
+
+
+	<c:if test="${cliente.type == false}">
+	
 
   <div class="w3-panel w3-border w3-border-white">
     <div class="w3-bar-block">
       <h1>Recogidas</h1>
-      <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-red w3-left-align">Recogida 1</button>
-      <div id="Demo3" class="w3-hide w3-container">
+      
+      <c:forEach items="${pedidos}" var="pedidoi">
+	  <c:if test="${pedidoi.idRepartidor.equals(cliente.email)}">
+      
+      <button onclick="myFunction('${pedidoi.idPedido}')" class="w3-button w3-block w3-red w3-left-align">Recogida id: ${pedidoi.idPedido}</button>
+      <div id="${pedidoi.idPedido}" class="w3-hide w3-container">
         <p>Info recogida</p>
+        <p>Horario recogida: ${pedidoi.horario}</p>
+        
+        <c:forEach items="${comercios}" var="comercioi">
+	        <c:if test="${pedidoi.idComercio.equals(comercioi.email)}">
+	        	<p>Comprado en: ${comercioi.shop_name}</p>
+	        	<p>Ubicación comercio: ${comercioi.location}</p>
+	        	<p>Teléfono del comercio: ${comercioi.phone}</p>	        		        		        	
+	        </c:if>
+	    </c:forEach>
+	    
+	    <c:forEach items="${clientes}" var="clientej">	        
+		      <c:if test="${pedidoi.idCliente.equals(clientej.email)}">
+		        <p>Repartir a: ${clientej.client_name}</p>
+		        <p>Email de contacto: ${clientej.email}</p>     
+		        <p>Dirección de entrega: ${clientej.location}</p>        			           	
+		      </c:if>
+		</c:forEach>
+        
       </div>
-      <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-red w3-left-align">Recogida 2</button>
-      <div id="Demo4" class="w3-hide w3-container">
-        <p>Info recogida</p>
-      </div>
+      
+      </c:if>  
+      </c:forEach>  
+      
     </div>
   </div>
+   
+   </c:if>
+
 
 </nav>
 
 <!-- Top menu on small screens -->
 <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
+  <span></span>
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -82,6 +145,7 @@ body {font-size:16px;}
  <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-xxxlarge"><b>BarrioCovid</b></h1>
+    <h3>Hola ${cliente.client_name}</h3> 
   </div>
 
 
@@ -103,37 +167,18 @@ body {font-size:16px;}
           <img src="https://zaragozaguia.com/wp-content/uploads/2020/01/Homenaje-a-las-tiendas-chinas-de-barrio-de-Zaragoza-2.jpg" alt="Tienda 1" style="width:100%">
         </div>
         <div class="w3-container w3-threequarter">
-          <h3><a href="pantallaCliente2.jsp">${comercioi.shop_name} </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO TIENDA</p>
-        </div>
-      </div>
-    </div>
-    <div class="w3-row m4 w3-margin-bottom">
-      <div class="w3-light-grey w3-container">
-        <div class="w3-quarter">
-          <img src="https://zaragozaguia.com/wp-content/uploads/2020/01/Homenaje-a-las-tiendas-chinas-de-barrio-de-Zaragoza-2.jpg" alt="Tienda 1" style="width:100%">
-        </div>
-        <div class="w3-container w3-threequarter">
-          <h3><a href="pantallaCliente2.html">TIENDA 2 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO TIENDA</p>
-        </div>
-      </div>
-    </div>
-    <div class="w3-row m4 w3-margin-bottom">
-      <div class="w3-light-grey w3-container">
-        <div class="w3-quarter">
-          <img src="https://zaragozaguia.com/wp-content/uploads/2020/01/Homenaje-a-las-tiendas-chinas-de-barrio-de-Zaragoza-2.jpg" alt="Tienda 1" style="width:100%">
-        </div>
-        <div class="w3-container w3-threequarter">
-          <h3><a href="pantallaCliente2.html">TIENDA 3 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO TIENDA</p>
+          <h3><p>${comercioi.shop_name} </></h3>
+          <form action="FormAccedeTienda">
+            <input type="hidden" name="idComercio" value="${comercioi.email}" />          	
+        	<button type="submit">Ver tienda</button>
+		  </form>
+          <p class="w3-opacity">Dirección: ${comercioi.location}</p>
+          <p>TELÉFONO: ${comercioi.phone}</p>          
         </div>
       </div>
     </div>
   </div>
+  
 </c:forEach>
 
 

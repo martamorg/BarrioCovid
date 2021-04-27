@@ -2,18 +2,15 @@ package es.upm.dit.isst.bc.model;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
-@Entity
 public class Comercio implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @Id
 	private String email;
 	private String password;
 	private String shop_name;
@@ -89,6 +86,12 @@ public class Comercio implements Serializable{
 
 
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -151,6 +154,8 @@ public class Comercio implements Serializable{
 
 
 	
+
+
 
 
 }

@@ -10,12 +10,12 @@
 </head>
 <body>
 <h2>Admin</h2>
-<p><b>Número de clientes y comercios registrados: </b>${fn:length(clientes)}</p>
 <h2>Clientes</h2>
 <table border="1">
 <c:forEach items="${clientes}" var="clientei">
 <tr>
 <td>${clientei.email}</td>
+<td>${clientei.client_name}</td>
 <td>${clientei.location}</td>
 <td>${clientei.type}</td>
 
@@ -29,6 +29,9 @@
 <tr>
 <td>${comercioi.email}</td>
 <td>${comercioi.location}</td>
+<td>${comercioi.phone}</td>
+<td>${comercioi.shop_name}</td>
+
 
 </tr>
 </c:forEach>
