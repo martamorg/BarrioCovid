@@ -17,6 +17,7 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import es.upm.dit.isst.bc.model.Comercio;
 import es.upm.dit.isst.bc.model.Pedido;
+import es.upm.dit.isst.bc.model.Producto;
 
 @WebServlet("/FormAccedeTienda")
 public class FormAccedeTienda extends HttpServlet {
@@ -44,6 +45,11 @@ public class FormAccedeTienda extends HttpServlet {
                     .get(new GenericType<List<Pedido>>() {});
                 
              req.getSession().setAttribute("pedidos", pedidos);
+             
+             List<Producto> productos  = client.target(URLHelper.getURL() + "/Productos").request().accept(MediaType.APPLICATION_JSON)
+                     .get(new GenericType<List<Producto>>() {});
+                 
+              req.getSession().setAttribute("productos", productos);
              
           getServletContext().getRequestDispatcher("/pantallaCliente2.jsp")
                              .forward(req,resp);

@@ -16,5 +16,6 @@
                 <mapping class="es.upm.dit.isst.bc.model.Cliente" /> 
                 <mapping class="es.upm.dit.isst.bc.model.Comercio" />
                 <mapping class="es.upm.dit.isst.bc.model.Pedido" />
+                <mapping class="es.upm.dit.isst.bc.model.Producto" />
         </session-factory>
 </hibernate-configuration>

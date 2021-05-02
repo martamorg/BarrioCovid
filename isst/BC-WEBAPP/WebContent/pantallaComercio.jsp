@@ -106,7 +106,12 @@ body {font-size:16px;}
  <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-xxxlarge"><b>Mi Tienda: ${comercio.shop_name}</b></h1>
-    <button href="" class="boton">Añadir producto</button>
+      <form action="FormProductoServlet">
+      	<button  class="boton">Añadir producto</button>
+        <input type="hidden" name="idComercio" value="${comercio.email}" />          	
+	  </form>
+    
+    
   </div>
 
 
@@ -116,44 +121,34 @@ body {font-size:16px;}
     <h1 class="w3-xxlarge w3-text-red"><b>Productos</b></h1>
   </div>
 
-  <!-- Lista Productos -->
+<!-- Lista Productos -->
+  <c:forEach items="${productos}" var="productoi">
+  <c:if test="${productoi.idComercio.equals(comercio.email)}">
+  
   <div class="w3-row-padding w3-grayscale">
     <div class="w3-row m4 w3-margin-bottom">
       <div class="w3-light-grey w3-container">
         <div class="w3-quarter">
-          <img src="img\manzana.png" alt="Tienda 1" style="width:100%">
+<!--           <img src="img\manzana.png" alt="Tienda 1" style="width:100%"> -->
         </div>
         <div class="w3-container w3-threequarter">
-          <h3><a href="#">PRODUCTO 1 </a></h3>
-          <p>INFO PRODUCTO</p>
+          <h3><p><b><u>${productoi.nombre}</u></b> </></h3>
+          <h3>
+            <p>Precio: ${productoi.precio} €</p>
+            <p>Stock: ${productoi.stock} unidades</p>
+            <button href="" class= "boton2">Añadir al carrito</button>
+          </h3>
+          
         </div>
       </div>
     </div>
-    <div class="w3-row m4 w3-margin-bottom">
-      <div class="w3-light-grey w3-container">
-        <div class="w3-quarter">
-          <img src="img\melon.jpg" alt="Tienda 1" style="width:100%">
-        </div>
-        <div class="w3-container w3-threequarter">
-          <h3><a href="#">PRODUCTO 2 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO PRODUCTO</p>
-        </div>
-      </div>
-    </div>
-    <div class="w3-row m4 w3-margin-bottom">
-      <div class="w3-light-grey w3-container">
-        <div class="w3-quarter">
-          <img src="img\banana.jpg" alt="Tienda 1" style="width:100%">
-        </div>
-        <div class="w3-container w3-threequarter">
-          <h3><a href="#">PRODUCTO 3 </a></h3>
-          <p class="w3-opacity">Dirección</p>
-          <p>INFO PRODUCTO</p>
-        </div>
-      </div>
-    </div>
+     </c:if>
+    </c:forEach>
+    
+    
+    
   </div>
+
 
 
 

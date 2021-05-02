@@ -15,6 +15,7 @@
 import es.upm.dit.isst.bc.model.Cliente;
 import es.upm.dit.isst.bc.model.Comercio;
 import es.upm.dit.isst.bc.model.Pedido;
+import es.upm.dit.isst.bc.model.Producto;
 
 
 @WebServlet("/FormLoginServlet")
@@ -98,7 +99,10 @@ public class FormLoginServlet extends HttpServlet {
 	                req.getSession().setAttribute("comercio", elComercio);
 	                
 	                
-	                //pasar productos
+	                List<Producto> productos  = client.target(URLHelper.getURL() + "/Productos").request().accept(MediaType.APPLICATION_JSON)
+	                        .get(new GenericType<List<Producto>>() {});
+	                    
+	                 req.getSession().setAttribute("productos", productos);
 	                
 	                List<Pedido> pedidos  = client.target(URLHelper.getURL() + "/Pedidos").request().accept(MediaType.APPLICATION_JSON)
 	                        .get(new GenericType<List<Pedido>>() {});
@@ -121,63 +125,3 @@ public class FormLoginServlet extends HttpServlet {
 }
 
   
-/*
- * @WebServlet("/FormLoginServlet")
- * 
- * public class FormLoginServlet extends HttpServlet {
- * 
- * private static final long serialVersionUID = 1L;
- * 
- * private final String ADMIN_EMAIL = "root";
- * 
- * private final String ADMIN_PASSWORD = "root";
- * 
- * 
- * 
- * @Override
- * 
- * protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws
- * ServletException, IOException { String email = req.getParameter("email");
- * String password = req.getParameter("password"); Client client =
- * ClientBuilder.newClient(new ClientConfig());
- * 
- * Cliente cliente = ClienteDAOImplementation.getInstance().login(email,
- * password); Comercio comercio =
- * ComercioDAOImplementation.getInstance().login(email, password);
- * 
- * 
- * // autenticacion1 (root root)
- * 
- * if( ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password) ) {
- * req.getSession().setAttribute("admin", true); List<Cliente> clientes =
- * client.target(URLHelper.getURL())
- * .request().accept(MediaType.APPLICATION_JSON) .get(new
- * GenericType<List<Cliente>>() {}); req.setAttribute("clientes", clientes);
- * getServletContext().getRequestDispatcher("/Admin.jsp") .forward(req,resp);
- * return;
- * 
- * }else if (null != cliente ){
- * 
- * req.getSession().setAttribute("cliente",ClienteDAOImplementation.getInstance(
- * ).read(cliente.getEmail()));
- * getServletContext().getRequestDispatcher("/pantallaCliente.jsp").forward(req,
- * resp);
- * 
- * }else if (null != comercio ){
- * 
- * req.getSession().setAttribute("comercio",ComercioDAOImplementation.
- * getInstance().read(comercio.getEmail()));
- * getServletContext().getRequestDispatcher("/pantallaComercio.jsp").forward(req
- * ,resp);
- * 
- * }
- * 
- * 
- * 
- * 
- * getServletContext().getRequestDispatcher("/index.html").forward(req,resp);
- * 
- * }
- * 
- * }
- */
