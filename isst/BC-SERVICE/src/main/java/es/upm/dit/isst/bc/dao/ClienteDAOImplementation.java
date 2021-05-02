@@ -76,17 +76,6 @@ public class ClienteDAOImplementation implements ClienteDAO {
 	  return p;
 	}
 	
-	/*
-	 * @SuppressWarnings("unchecked")
-	 * 
-	 * @Override public Cliente login (String email, String password) { Session
-	 * session = SessionFactoryService.get().openSession(); Cliente cliente = null;
-	 * session.beginTransaction(); Query q = session.
-	 * createQuery("select p from Cliente p where p.email = :email and p.password = :password"
-	 * ); q.setParameter("email", email); q.setParameter("password", password);
-	 * List<Cliente> tfgs = q.getResultList(); if (tfgs.size() > 0) cliente =
-	 * (Cliente) (q.getResultList().get(0)); session.getTransaction().commit();
-	 * session.close(); return cliente; }
-	 */
+	
 
 }

@@ -17,6 +17,7 @@ public class Producto implements Serializable{
 	private String nombre;
 	private float precio;
 	private int stock;
+	private String idComercio;
 	
 	
 	public Producto() {
@@ -55,6 +56,16 @@ public class Producto implements Serializable{
 	}
 
 
+	public String getIdComercio() {
+		return idComercio;
+	}
+
+
+	public void setIdComercio(String idComercio) {
+		this.idComercio = idComercio;
+	}
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -64,6 +75,7 @@ public class Producto implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((idComercio == null) ? 0 : idComercio.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + Float.floatToIntBits(precio);
 		result = prime * result + stock;
@@ -80,6 +92,11 @@ public class Producto implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
+		if (idComercio == null) {
+			if (other.idComercio != null)
+				return false;
+		} else if (!idComercio.equals(other.idComercio))
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -95,7 +112,8 @@ public class Producto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Producto [nombre=" + nombre + ", precio=" + precio + ", stock=" + stock + "]";
+		return "Producto [nombre=" + nombre + ", precio=" + precio + ", stock=" + stock + ", idComercio=" + idComercio
+				+ "]";
 	}
 
 

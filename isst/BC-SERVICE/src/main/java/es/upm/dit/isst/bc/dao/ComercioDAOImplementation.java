@@ -75,22 +75,6 @@ public class ComercioDAOImplementation implements ComercioDAO {
 	  session.close();
 	  return p;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Comercio login (String email, String password) {
-	  Session session = SessionFactoryService.get().openSession();
-	  Comercio comercio = null;
-	  session.beginTransaction();
-	  Query q = session.createQuery("select p from Comercio p where p.email = :email and p.password = :password");
-	  q.setParameter("email", email);
-	  q.setParameter("password", password);
-	  List<Comercio> tfgs = q.getResultList();
-	  if (tfgs.size() > 0)
-	  	comercio = (Comercio) (q.getResultList().get(0));
-	  session.getTransaction().commit();
-	  session.close();
-	  return comercio;
-	}
+
 
 }
