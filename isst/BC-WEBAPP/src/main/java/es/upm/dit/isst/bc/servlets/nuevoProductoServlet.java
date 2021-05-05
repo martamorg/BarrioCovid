@@ -2,6 +2,8 @@
 package es.upm.dit.isst.bc.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -51,8 +54,11 @@ public class nuevoProductoServlet extends HttpServlet {
        
        
        
-		req.setAttribute("producto", producto); 
-		
+       List<Producto> productos  = client.target(URLHelper.getURL() + "/Productos").request().accept(MediaType.APPLICATION_JSON)
+               .get(new GenericType<List<Producto>>() {});
+           
+        req.getSession().setAttribute("productos", productos);
+        
 		getServletContext().getRequestDispatcher("/pantallaComercio.jsp").forward(req, resp);
 	}
 
