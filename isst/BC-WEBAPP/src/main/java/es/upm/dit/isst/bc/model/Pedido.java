@@ -18,7 +18,7 @@ public class Pedido implements Serializable{
 	private String idComercio;
 	private String idRepartidor;
 	private String idCliente;
-	private String  horario; 
+	private String  horario; //??????????????????????????
 	private String listaProductos;
 	
 	

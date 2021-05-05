@@ -136,12 +136,12 @@ body {font-size:16px;}
           <h3>
             <p>Precio: ${productoi.precio} €</p>
             <p>Stock: ${productoi.stock} unidades</p>
-            <button href="" class= "boton2">Añadir al carrito</button>
-          </h3>
-          
+          </h3>          
         </div>
       </div>
     </div>
+    
+   </div> 
      </c:if>
     </c:forEach>
     
@@ -162,12 +162,10 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
-
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
 }
-
 // Modal Image Gallery
 function onClick(element) {
   document.getElementById("img01").src = element.src;
@@ -175,7 +173,6 @@ function onClick(element) {
   var captionText = document.getElementById("caption");
   captionText.innerHTML = element.alt;
 }
-
 function myFunction(id) {
   var x = document.getElementById(id);
   if (x.className.indexOf("w3-show") == -1) {
@@ -188,7 +185,6 @@ function myFunction(id) {
             x.previousElementSibling.className.replace("w3-red", "w3-red");
   }
 }
-
 </script>
 
 </body>

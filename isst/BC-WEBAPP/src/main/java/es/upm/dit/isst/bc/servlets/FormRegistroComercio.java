@@ -38,11 +38,15 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
                Response r = client.target(URLHelper.getURL()+ "/Comercios").request()
                         .post(Entity.entity(comercio, MediaType.APPLICATION_JSON)
                        , Response.class);
-				/*
-				 * if (r.getStatus() == 200) { req.getSession().setAttribute("comercio",
-				 * comercio); getServletContext().getRequestDispatcher("/index.html")
-				 * .forward(req, resp); return; }
-				 */
-        getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+               
+System.out.print(r);
+				
+				  if (r.getStatus() == 201) {
+					  req.getSession().setAttribute("comercio", comercio); 
+					  getServletContext().getRequestDispatcher("/index.html").forward(req, resp); 
+					  return; 
+					  }
+				 
+       // getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
 	}
 }

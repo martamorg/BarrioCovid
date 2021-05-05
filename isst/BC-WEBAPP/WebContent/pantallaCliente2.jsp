@@ -49,10 +49,8 @@ body {font-size:16px;}
       
       <button onclick="myFunction('${pedidoi.idPedido}')" class="w3-button w3-block w3-red w3-left-align">Pedido id: ${pedidoi.idPedido}</button>
       <div id="${pedidoi.idPedido}" class="w3-hide w3-container">
-<%--        	<p>Pedido: ${pedidoi.listaProductos}</p>
- --%>        
- 		
- 		<p>Recogida: ${pedidoi.horario}</p>
+        <p>Pedido: ${pedidoi.listaProductos}</p>
+        <p>Recogida: ${pedidoi.horario}</p>
         
         
         <c:forEach items="${comercios}" var="comercioi">
@@ -170,7 +168,7 @@ body {font-size:16px;}
           <h3>
             <p>Precio: ${productoi.precio} €</p>
             <p>Stock: ${productoi.stock} unidades</p>
-            <button href="" class= "boton2">Añadir al carrito</button>
+                <button type="submit"  class= "boton2">Añadir al carrito</button>                     
           </h3>
           
         </div>

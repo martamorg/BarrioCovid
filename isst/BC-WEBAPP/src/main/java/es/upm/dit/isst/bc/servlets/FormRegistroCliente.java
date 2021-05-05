@@ -44,14 +44,16 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
                 cliente.setType(type);
                 
                 Client client = ClientBuilder.newClient(new ClientConfig());
-               Response r = client.target(URLHelper.getURL()+ "/Clientes").request()
+                Response r = client.target(URLHelper.getURL()+ "/Clientes").request()
                         .post(Entity.entity(cliente, MediaType.APPLICATION_JSON)
                        , Response.class);
-				/*
-				 * if (r.getStatus() == 200) { req.getSession().setAttribute("cliente",
-				 * cliente); getServletContext().getRequestDispatcher("/index.html")
-				 * .forward(req, resp); return; }
-				 */
-        getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+				
+				  if (r.getStatus() == 201) {
+					  req.getSession().setAttribute("cliente",cliente); 
+					  getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+					  return; 
+					  }
+				 
+        //getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
 	}
 }

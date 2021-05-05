@@ -40,16 +40,16 @@ public class FormAccedeTienda extends HttpServlet {
         	
             req.getSession().setAttribute("comercio", elComercio);
             
-            //req session lista de productos!! y pedidos 
-            List<Pedido> pedidos  = client.target(URLHelper.getURL() + "/Pedidos").request().accept(MediaType.APPLICATION_JSON)
+            
+            List<Producto> productos  = client.target(URLHelper.getURL() + "/Productos").request().accept(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<List<Producto>>() {});
+                
+             req.getSession().setAttribute("productos", productos);
+             
+             List<Pedido> pedidos  = client.target(URLHelper.getURL() + "/Pedidos").request().accept(MediaType.APPLICATION_JSON)
                     .get(new GenericType<List<Pedido>>() {});
                 
              req.getSession().setAttribute("pedidos", pedidos);
-             
-             List<Producto> productos  = client.target(URLHelper.getURL() + "/Productos").request().accept(MediaType.APPLICATION_JSON)
-                     .get(new GenericType<List<Producto>>() {});
-                 
-              req.getSession().setAttribute("productos", productos);
              
           getServletContext().getRequestDispatcher("/pantallaCliente2.jsp")
                              .forward(req,resp);
