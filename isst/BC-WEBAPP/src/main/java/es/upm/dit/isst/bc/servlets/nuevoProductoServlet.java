@@ -46,7 +46,7 @@ public class nuevoProductoServlet extends HttpServlet {
        
        System.out.print(r);
 		/*
-		 * if (r.getStatus() == 200) { req.getSession().setAttribute("producto",
+		 * if (r.getStatus() == 201) { req.getSession().setAttribute("producto",
 		 * producto); getServletContext().getRequestDispatcher("/pantallaComercio.jsp")
 		 * .forward(req, resp); return; }
 		 * 

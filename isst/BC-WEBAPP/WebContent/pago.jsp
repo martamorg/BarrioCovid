@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
+<title>BarrioCovid</title>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -119,7 +120,7 @@ span.price {
 <div class="row">
   <div class="col-75">
     <div class="container">
-      <form action="/action_page.php">
+      <form action="FormFinalizaPedido">
         <h2>Barrio Covid</h2>
 
         <div class="row">
@@ -176,24 +177,37 @@ span.price {
         </div>
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Direccion de Envío igual que Dirección de la Tarjeta
-        </label>
+        </label>        
         <input type="submit" value="Continue to checkout" class="btn">
       </form>
     </div>
   </div>
+  
+<!--   CARRITO -->
+  
   <div class="col-25">
     <div class="container">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-      <c:forEach items="${productos}" var="productoi"> 
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> </span></h4>
       
       
-<!--       poner cantidades -->
-      <p> ${productoi.nombre} <span class="price">${productoi.precio}</span></p>
+      <c:forEach items="${cadaProd}" var="elProductoi"> 
+                      
+      <p> ${elProductoi} 
+     	 <span class="price">
+     	       <c:forEach items="${productos}" var="productoj"> 
+		        <c:if test="${productoj.nombre.equals(elProductoi)}">
+			        	${productoj.precio}€ 		        	        	
+		        </c:if>
+     	       </c:forEach>     	      	 	
+     	 </span>
+      </p>
       
-      <hr>
-      <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
       
       </c:forEach>
+      
+      <hr>
+      <p>Total <span class="price" style="color:black"><b>${precioTotal}€</b></span></p>
+      
     </div>
   </div>
 </div>

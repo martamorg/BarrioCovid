@@ -24,9 +24,13 @@ body {font-size:16px;}
 <div class="w3-top">
   <div class="w3-bar w3-red w3-large ">
     <img src="https://i.pinimg.com/564x/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.jpg" class="w3-circle w3-bar-item w3-right" alt="usericon" style="width:100%;max-width:58px">
-
+	
+	<form action="CarritoServlet">
+	    <input type="hidden" name="listaProds" value="${listaProds}" />          		
+    	<button type="submit" class="w3-bar-item w3-input w3-right">Mi Compra</button>
+    </form>
 	<form action="FormLogout">
-    <button type="submit" class="w3-bar-item w3-input w3-right">Logout</button>
+    	<button type="submit" class="w3-bar-item w3-input w3-right">Logout</button>
     </form>
   </div>
 </div>
@@ -164,15 +168,27 @@ body {font-size:16px;}
 <!--           <img src="img\manzana.png" alt="Tienda 1" style="width:100%"> -->
         </div>
         <div class="w3-container w3-threequarter">
+        
+        
           <h3><p><b><u>${productoi.nombre}</u></b> </></h3>
           <h3>
             <p>Precio: ${productoi.precio} €</p>
             <p>Stock: ${productoi.stock} unidades</p>
-                <button type="submit"  class= "boton2">Añadir al carrito</button>                     
+            
+        <form action="anadirProductoServlet">                       
+
+            <input type="hidden" name="productoSel" value="${productoi.nombre}" />   
+            <input type="hidden" name="listaProds" value="${listaProds}" />          	
+                   	
+	         <button type="submit"  class= "boton2">Añadir al carrito</button>   
+          </form>    
+                          
           </h3>
+
           
         </div>
       </div>
+    </div>
     </div>
      </c:if>
     </c:forEach>
