@@ -12,5 +12,6 @@ public interface ComercioDAO {
 	public void update(Comercio comercio);
 	public void delete(Comercio comercio);
 	public List<Comercio> readAll();
+	public Comercio login(String email, String password);
 
 }

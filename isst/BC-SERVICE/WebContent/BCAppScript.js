@@ -74,32 +74,3 @@ $(document).ready(function(){
 	}
 	});
 	});
-
-
-$(document).ready(function(){
-	$.ajax({
-	url: '/BC-SERVICE/rest/Productos',
-	type: 'get',
-	dataType: 'JSON',
-	success: function(response){
-	var len = response.length;
-	for(var i=0; i<len; i++){
-	var nombre = response[i].nombre;
-	var precio = response[i].precio;
-	var stock = response[i].stock;
-	var idComercio = response[i].idComercio;
-	
-
-	var tr_str = "<tr>" +
-	"<td align='center'>" + nombre + "</td>" +
-	"<td align='center'>" + precio + "</td>" +
-	"<td align='center'>" + stock + "</td>" +
-	"<td align='center'>" + idComercio + "</td>" +
-	
-
-	"</tr>";
-	$("#productoTable tbody").append(tr_str);
-	}
-	}
-	});
-	});
