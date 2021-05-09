@@ -44,7 +44,7 @@ public class PedidoResource {
 	@GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response read(@PathParam("id") String id) {
+    public Response read(@PathParam("id") int id) {
         Pedido t = PedidoDAOImplementation.getInstance().read(id);
         if (t == null)
           return Response.status(Response.Status.NOT_FOUND).build();
@@ -56,7 +56,7 @@ public class PedidoResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Response update(@PathParam("id") String id, Pedido t) {
+    public Response update(@PathParam("id") int id, Pedido t) {
             System.out.println("Update request for" + id + " " + t.toString());
         Pedido told = PedidoDAOImplementation.getInstance().read(id);
         if ((told == null) || ( told.getIdPedido() != t.getIdPedido()))
@@ -69,7 +69,7 @@ public class PedidoResource {
 
     @DELETE
     @Path("{id}")
-    public Response delete(@PathParam("id") String  id) {
+    public Response delete(@PathParam("id") int  id) {
         Pedido rold = PedidoDAOImplementation.getInstance().read(id);
         if (rold == null)
             return Response.notModified().build();
