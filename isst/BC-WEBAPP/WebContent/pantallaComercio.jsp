@@ -76,10 +76,14 @@ body {font-size:16px;}
 		      		      		    		      
 		</c:forEach>
         
-           
+        <form action="FormRecogidaRealizada">
+      		<button  class="boton">Pedido recogido</button>
+        <input type="hidden" name="idPedido" value="${pedidoi.idPedido}" />          	
+	  </form>  
       </div>
       
       </c:if>
+      
 	  </c:forEach>
       
     </div>

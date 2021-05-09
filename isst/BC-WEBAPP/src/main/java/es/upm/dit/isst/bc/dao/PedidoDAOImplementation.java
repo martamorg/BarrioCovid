@@ -36,10 +36,10 @@ public class PedidoDAOImplementation implements PedidoDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Pedido read (String email) {
+	public Pedido read (int idPedido) {
 	  Session session = SessionFactoryService.get().openSession();
 	  session.beginTransaction();
-	  Pedido pedido = session.get(Pedido.class, email);
+	  Pedido pedido = session.get(Pedido.class, idPedido);
 	  session.getTransaction().commit();
 	  session.close();
 	  return pedido;

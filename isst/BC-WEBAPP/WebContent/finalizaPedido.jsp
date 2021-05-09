@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -9,26 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title></title>
       
-  <script>
-  function magia() {
-  
-    var data1 = horarios;
-
-	var data2 = pedidos.horario;
-
-	var array = [];
-	for (var i = 0; i < data1.length; i++) {
-	    var igual=false;
-	     for (var j = 0; j < data2.length & !igual; j++) {
-	         if(data1[i] == data2[j]) 
-	                 igual=true;
-	     }
-	    if(!igual)array.push(data1[i]);
-	}
-	return array ;
-	
-  }
-  </script>
     <style>
     body {
       font-family: Arial;
@@ -128,38 +109,22 @@
     <h1>Elige tu horario de recogida</h1>
   <form action="AsignaHorario" method="get">
   
-   <c:forEach items="${horarios}" var="horarioi"> 
    
    
    	 <c:if test="${cliente.type == false}">
-   	   <script>   magia(); 	   </script>
-
-   	 
-   	    <c:forEach items="${array}" var="horarioi"> 
-   	  
-   		          <p><input type="radio" name="radio" value="${horarioi}"> ${horarioi} </p>  		      
-   		      
-   		</c:forEach>  
-   		
-
+  	    <c:forEach items="${horariosDisp}" var="horarioDispi">   	 
+   			<p><input type="radio" name="hora" value="${horarioDispi}" > ${horarioDispi} </p> 
+   		</c:forEach>       		        
      </c:if>
      
      <c:if test="${cliente.type == true}">
-   	    <c:forEach items="${pedidos}" var="pedidoi"> 
-   	      <c:if test="${pedidoi.idComercio.equals(comercio.email)}">
-   	    
-   	  
-   		      <c:if test="${horarioi.equals(pedidoi.horario)}"> 
-   		          <p><input type="radio" name="hora" value="${horarioi}"> ${horarioi} </p> 
-   		          <input type="hidden" name="idRepartidor" value="${pedidoi.idCliente}" />          	  		           		      
-   		      </c:if>  
-   		      
-   		  </c:if>
+   	    <c:forEach items="${horariosRec}" var="horarioReci"> 
+   		          <p><input type="radio" name="hora" value="${horarioReci}"> ${horarioReci} </p> 
+<%--      <input type="hidden" name="idRepartidor" value="${pedidoi.idCliente}" />          	  		           		        --%>
    		</c:forEach>       		        
      </c:if>
   
     
-   </c:forEach>
    
    <input type="hidden" name="idComercio" value="${comercio.email}" />          	
    

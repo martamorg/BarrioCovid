@@ -24,9 +24,7 @@ body {font-size:16px;}
   <div class="w3-bar w3-red w3-large ">  
     <img src="https://i.pinimg.com/564x/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.jpg" class="w3-circle w3-bar-item w3-right" alt="usericon" style="width:100%;max-width:58px">
 <!--     HACER BUSCADOR  -->
-	<form action="CarritoServlet">
-    <button type="submit" class="w3-bar-item w3-input w3-right">Mi Compra</button>
-    </form>
+
 	<form action="FormLogout">
     	<button type="submit" class="w3-bar-item w3-input w3-right">Logout</button>
     </form> 

@@ -177,7 +177,10 @@ span.price {
         </div>
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Direccion de Envío igual que Dirección de la Tarjeta
-        </label>        
+        </label> 
+        
+        <input type="hidden" name="comercio" value="${comercio.email}">
+               
         <input type="submit" value="Continue to checkout" class="btn">
       </form>
     </div>

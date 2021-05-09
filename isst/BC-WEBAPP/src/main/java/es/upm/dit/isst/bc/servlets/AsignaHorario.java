@@ -17,9 +17,11 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-
+import es.upm.dit.isst.bc.dao.ProductoDAOImplementation;
 import es.upm.dit.isst.bc.model.Cliente;
+import es.upm.dit.isst.bc.model.Comercio;
 import es.upm.dit.isst.bc.model.Pedido;
+import es.upm.dit.isst.bc.model.Producto;
 
 /**
  * Servlet implementation class AsignaHorario
@@ -41,8 +43,10 @@ public class AsignaHorario extends HttpServlet {
 
 
 	    Client client = ClientBuilder.newClient(new ClientConfig());
-	    
+	    String idComercio = req.getParameter("idComercio");
 	    String hora = req.getParameter("hora");
+	    String listaProds = req.getParameter("listaProds");
+	    
         List<Pedido> pedidos  = client.target(URLHelper.getURL() + "/Pedidos").request().accept(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Pedido>>() {});
         int size = pedidos.size();
@@ -50,28 +54,74 @@ public class AsignaHorario extends HttpServlet {
         List<Cliente> clientes  = client.target(URLHelper.getURL()+ "/Clientes").request().accept(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Cliente>>() {});
         
+        List<Producto> productos  = client.target(URLHelper.getURL()+ "/Productos").request().accept(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Producto>>() {});
+        
 
 	    
 	    //esto no va :( hace con url de rest 
 	   // Cliente persona = ClienteDAOImplementation.getInstance().read(req.getParameter("IdCliente"));
-	    
+        
+        int idUltimoPedido = 0;
+        if(size != 0) {
+            idUltimoPedido = pedidos.get(size-1).getIdPedido();	
+
+        }
+        String idRepartidor = "";
+
+        
         Pedido pedido = new Pedido();
-        pedido.setIdPedido(size +1);
+        pedido.setIdPedido(idUltimoPedido +1);
         pedido.setHorario(hora);
         pedido.setIdCliente(req.getParameter("idCliente"));
-        pedido.setIdComercio(req.getParameter("idComercio"));
+        pedido.setIdComercio(idComercio);
         
-        for(Cliente c: clientes) {
-        	if (c.getEmail().equals(req.getParameter("idCliente"))) {
-                if (c.isType() == true) {
-                    pedido.setIdRepartidor(req.getParameter("idRepartidor"));
-                } else { 
-                	pedido.setIdRepartidor("");
-                }                
-        	}        	
+        for(Pedido p: pedidos) {
+  	  		if (idComercio.equals(p.getIdComercio()) && p.getHorario().equals(hora)) {
+  	  			String idCli = p.getIdCliente();
+  	  			System.out.print("AQUI MIRA SI SALE EL CLIENTE: " + idCli);
+
+  	  			
+  	  			for (Cliente c: clientes) {
+  	  				if (c.getEmail().equals(idCli) && c.isType() == false) {
+  	  						idRepartidor = c.getEmail();
+
+  	  				}
+  	  			}	  			  	  			
+  	  		}  
+   	
         }
+        
+        pedido.setIdRepartidor(idRepartidor);
+
                
-        pedido.setListaProductos(req.getParameter("listaProds"));
+        pedido.setListaProductos(listaProds);
+        
+		String[] cadaProd = new String[50];
+		
+
+        //ESTO NO VA:(
+		
+//		if (listaProds != null) {
+//			cadaProd = listaProds.split(",");      
+//		}
+//        for (String prod: cadaProd) {
+//        	for(Producto p: productos) {
+//        		
+//        		if(p.getNombre().equals(prod)) {
+//        		        			
+//        	        Producto producto = ProductoDAOImplementation.getInstance().read(prod);
+//        	        
+//        			producto.setIdComercio(p.getIdComercio());
+//        			producto.setNombre(prod);
+//        			producto.setPrecio(p.getPrecio());
+//        			producto.setStock(p.getStock()-1);
+//        	        ProductoDAOImplementation.getInstance().update(producto);
+//        		}
+//        		
+//        	}
+//        	
+//        }
 
         
         
