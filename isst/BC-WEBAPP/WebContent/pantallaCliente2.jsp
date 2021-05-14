@@ -159,7 +159,7 @@ body {font-size:16px;}
 
   <!-- Lista Productos -->
   <c:forEach items="${productos}" var="productoi">
-  <c:if test="${productoi.idComercio.equals(comercio.email)}">
+  <c:if test="${productoi.idComercio.equals(comercio.email) && productoi.stock > 0}">
   
   <div class="w3-row-padding w3-grayscale">
     <div class="w3-row m4 w3-margin-bottom">

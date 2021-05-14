@@ -54,13 +54,9 @@ public class AsignaHorario extends HttpServlet {
         List<Cliente> clientes  = client.target(URLHelper.getURL()+ "/Clientes").request().accept(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Cliente>>() {});
         
-        List<Producto> productos  = client.target(URLHelper.getURL()+ "/Productos").request().accept(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<Producto>>() {});
         
 
-	    
-	    //esto no va :( hace con url de rest 
-	   // Cliente persona = ClienteDAOImplementation.getInstance().read(req.getParameter("IdCliente"));
+
         
         int idUltimoPedido = 0;
         if(size != 0) {
@@ -75,11 +71,12 @@ public class AsignaHorario extends HttpServlet {
         pedido.setHorario(hora);
         pedido.setIdCliente(req.getParameter("idCliente"));
         pedido.setIdComercio(idComercio);
+        pedido.setIdRepartidor(idRepartidor);               
+        pedido.setListaProductos(listaProds);
         
         for(Pedido p: pedidos) {
   	  		if (idComercio.equals(p.getIdComercio()) && p.getHorario().equals(hora)) {
   	  			String idCli = p.getIdCliente();
-  	  			System.out.print("AQUI MIRA SI SALE EL CLIENTE: " + idCli);
 
   	  			
   	  			for (Cliente c: clientes) {
@@ -91,55 +88,57 @@ public class AsignaHorario extends HttpServlet {
   	  		}  
    	
         }
+        client.target(URLHelper.getURL()+ "/Pedidos").request()
+                .post(Entity.entity(pedido, MediaType.APPLICATION_JSON));
         
-        pedido.setIdRepartidor(idRepartidor);
 
-               
-        pedido.setListaProductos(listaProds);
         
 		String[] cadaProd = new String[50];
 		
-
-        //ESTO NO VA:(
+		if (listaProds != null) {
+			cadaProd = listaProds.split(",");      
+		}
 		
-//		if (listaProds != null) {
-//			cadaProd = listaProds.split(",");      
-//		}
-//        for (String prod: cadaProd) {
-//        	for(Producto p: productos) {
-//        		
-//        		if(p.getNombre().equals(prod)) {
-//        		        			
-//        	        Producto producto = ProductoDAOImplementation.getInstance().read(prod);
-//        	        
-//        			producto.setIdComercio(p.getIdComercio());
-//        			producto.setNombre(prod);
-//        			producto.setPrecio(p.getPrecio());
-//        			producto.setStock(p.getStock()-1);
-//        	        ProductoDAOImplementation.getInstance().update(producto);
-//        		}
-//        		
-//        	}
-//        	
-//        }
+  	    System.out.println("print 1");
 
-        
-        
-       Response r = client.target(URLHelper.getURL()+ "/Pedidos").request()
-                .post(Entity.entity(pedido, MediaType.APPLICATION_JSON)
-               , Response.class);
-       
-		System.out.print(r);
+		for (String prod: cadaProd) {			
+			Producto producto = null;
+			  try {
+			         producto = client.target(URLHelper.getURL() + "/Productos/" + prod)
+			              .request().accept(MediaType.APPLICATION_JSON).get(Producto.class);
+			  } catch(Exception e) {}
+		  	  System.out.println("print 2");
+
+			  if (producto != null) {
+			  	  System.out.println("print 3");
+
+				producto.setIdComercio(producto.getIdComercio());
+      			producto.setNombre(prod);
+      			producto.setPrecio(producto.getPrecio());
+      			producto.setStock(producto.getStock()-1);
+      			
+      	    Response r =  client.target(URLHelper.getURL() + "/Productos/" + prod)
+              .request()
+              .post(Entity.entity(producto, MediaType.APPLICATION_JSON), Response.class);
+      	    
+      	    System.out.print(r);
+				  
+			  }
+			  
+		}
 		
-//		  if (r.getStatus() == 201) {
-//			  req.getSession().setAttribute("pedido", pedido); 
-//			  getServletContext().getRequestDispatcher("/index.html").forward(req, resp); 
-//			  return; 
-//			  }
+        List<Producto> productos  = client.target(URLHelper.getURL()+ "/Productos").request().accept(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Producto>>() {});
+        req.getSession().setAttribute("productos", productos);
+
 	    
         List<Pedido> pedidos2  = client.target(URLHelper.getURL() + "/Pedidos").request().accept(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Pedido>>() {});
         req.getSession().setAttribute("pedidos", pedidos2);
+        
+        //AQUI
+        
+        req.getSession().removeAttribute("listaProds");
 
         getServletContext().getRequestDispatcher("/pantallaCliente.jsp").forward(req,resp);
 

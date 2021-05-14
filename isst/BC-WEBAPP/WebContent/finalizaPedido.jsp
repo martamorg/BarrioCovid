@@ -118,10 +118,19 @@
      </c:if>
      
      <c:if test="${cliente.type == true}">
-   	    <c:forEach items="${horariosRec}" var="horarioReci"> 
-   		          <p><input type="radio" name="hora" value="${horarioReci}"> ${horarioReci} </p> 
-<%--      <input type="hidden" name="idRepartidor" value="${pedidoi.idCliente}" />          	  		           		        --%>
-   		</c:forEach>       		        
+     
+	    <c:choose>
+		    <c:when test="${horariosRec.size() == 0}">
+				<h2>Lo sentimos, no hay horarios de recogida disponibles.</h2>
+		    </c:when>    
+		    <c:otherwise>
+		   	    <c:forEach items="${horariosRec}" var="horarioReci"> 
+		   		          <p><input type="radio" name="hora" value="${horarioReci}"> ${horarioReci} </p> 
+		  		</c:forEach> 
+		    </c:otherwise>
+		</c:choose>
+   
+  		   		        
      </c:if>
   
     
