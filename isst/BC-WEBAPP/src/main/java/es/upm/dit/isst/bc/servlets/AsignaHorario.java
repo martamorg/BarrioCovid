@@ -82,6 +82,8 @@ public class AsignaHorario extends HttpServlet {
   	  			for (Cliente c: clientes) {
   	  				if (c.getEmail().equals(idCli) && c.isType() == false) {
   	  						idRepartidor = c.getEmail();
+  	  			        pedido.setIdRepartidor(idRepartidor);               
+
 
   	  				}
   	  			}	  			  	  			
